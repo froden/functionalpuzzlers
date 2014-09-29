@@ -1,0 +1,22 @@
+puzzlers: refactor to functional
+================================
+
+referanser:
+
+* Functional prog in Scala
+* Real world Haskell
+* javazone talk
+
+mål:
+
+* unngå mutable state
+* unngå side effects
+* referential transparent functions
+
+emner:
+
+* for looping -> list.map.filter etc
+* while looping -> rekursjon
+* while/for looping -> fold (reduksjon)
+* dependency injection
+* splitte kode i pure + sideeffekt (se eksempel i fp in scala)
