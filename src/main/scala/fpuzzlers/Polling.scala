@@ -1,8 +1,9 @@
 package fpuzzlers
 
-import scala.collection.mutable.MutableList
+import scala.collection.mutable
 import scala.concurrent.Future
 import scala.util.{Failure, Success, Try}
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object Polling {
 
@@ -10,43 +11,43 @@ object Polling {
     def pollCpu(): Long
   }
 
-  class JmxCpuPoller(jmxService: JmxService) extends Runnable {
-    var running = true
+  object ImperativePolling {
 
-    val results: MutableList[Long] = new MutableList[Long]
+    class JmxCpuPoller(jmxService: JmxService) extends Runnable {
+      var running = true
 
-    override def run() {
-      while(running) {
-        try {
-          results += jmxService.pollCpu()
-          Thread.sleep(500)
-        } catch {
-          case e: Exception => ()
+      val results: mutable.MutableList[Long] = new mutable.MutableList[Long]
+
+      override def run() {
+        while (running) {
+          try {
+            results += jmxService.pollCpu()
+            Thread.sleep(500)
+          } catch {
+            case e: Exception => ()
+          }
         }
       }
+
+      def stop() = running = false
     }
 
-    def stop() = running = false
-  }
-}
-
-
-object Polling2 {
-
-  trait JmxService {
-    def poll(): Long
   }
 
-  def pollJmxCpu(jmxService: JmxService): Stream[Long] =
-    Try(jmxService.poll()) match {
-      case Success(l) => l #:: pollJmxCpu(jmxService)
-      case Failure(e) => pollJmxCpu(jmxService)
+  object FunctionalPolling {
+
+    private def pollJmxCpu(jmxService: JmxService): Stream[Long] =
+      Try(jmxService.pollCpu()) match {
+        case Success(l) => l #:: pollJmxCpu(jmxService)
+        case Failure(e) => pollJmxCpu(jmxService)
+      }
+
+    def getJmxCpuStats(jmxService: JmxService, running: () => Boolean): Future[List[Long]] = Future {
+      pollJmxCpu(jmxService)
+        .takeWhile(_ => running())
+        .map(l => {Thread.sleep(500); l})
+        .toList
     }
-
-  def getJmxCpuStats(jmxService: JmxService, running: () => Boolean): Future[List[Long]] = Future {
-    pollJmxCpu(jmxService)
-      .takeWhile(_ => running())
-      .map(l => {Thread.sleep(500); l})
-      .foldLeft(List[Long]()) ((acc, l) => l :: acc)
   }
+
 }
