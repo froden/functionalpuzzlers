@@ -1,0 +1,4 @@
+<scalastyle>
+    <name>Puzzler style config</name>
+    <check enabled="true" class="org.scalastyle.scalariform.VarFieldChecker" level="warning"/>
+</scalastyle>
