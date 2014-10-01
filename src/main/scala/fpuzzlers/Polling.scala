@@ -42,12 +42,12 @@ object Polling {
         case Failure(e) => pollJmxCpu(jmxService)
       }
 
-    def getJmxCpuStats(jmxService: JmxService, running: () => Boolean): Future[List[Long]] = Future {
-      pollJmxCpu(jmxService)
-        .takeWhile(_ => running())
-        .map(l => {Thread.sleep(500); l})
-        .toList
-    }
+    def getJmxCpuStats(jmxService: JmxService, running: () => Boolean): Future[List[Long]] =
+      Future {
+        pollJmxCpu(jmxService)
+          .takeWhile(_ => running())
+          .map(l => {Thread.sleep(500); l})
+          .toList
+      }
   }
-
 }
