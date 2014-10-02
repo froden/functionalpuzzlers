@@ -3,6 +3,7 @@ package fpuzzlers
 import fpuzzlers.Polling.ImperativePolling.JmxCpuPoller
 import fpuzzlers.Polling.{FunctionalPolling, JmxService}
 import org.scalatest.{FunSuite, MustMatchers}
+import scala.language.postfixOps
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
