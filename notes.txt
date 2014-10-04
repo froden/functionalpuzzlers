@@ -20,3 +20,20 @@ emner:
 * while/for looping -> fold (reduksjon)
 * dependency injection
 * splitte kode i pure + sideeffekt (se eksempel i fp in scala)
+
+slides:
+
+* referential transparency + oppgave (fp in scala)
+  * fordi det er enkelt å tese, gjenbrukes, paralellisere
+  * functional core + side effects ytters
+  * no _observable_ side effects
+* unngå mutable state (alltid)
+* rekursjon
+  * reukursjon unngår mutable state
+  * tail rekursive
+* map, filter, fold => slipper eksplisitt rekursjon
+* fold
+* dependency injection i scala
+  * dep som parametre (partial application) samme som i oo
+  * dep som implicit parametre
+
