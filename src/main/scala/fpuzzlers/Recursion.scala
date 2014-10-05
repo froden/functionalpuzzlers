@@ -3,46 +3,80 @@ package fpuzzlers
 import scala.annotation.tailrec
 
 /*
- * In this exercise ...
+ * In this exercise you will calculate the sum of a list of integers in different functional ways.
+ * You are not allowed to user mutable state (e.g. var), or loops of any kind (e.g. while, for).
  */
 object Recursion extends App {
 
-  val numbers = List(2,4,7,19,25)
+  /*
+   * TODO: Comment for solution branch only
+   * Same as foldRight
+   * List(2,4,7,19,25).foldRight(0)(_+_)
+   *
+   *    f
+   *   / \
+   *  2   f
+   *     / \
+   *    4   f
+   *       / \
+   *      7   f
+   *         / \
+   *        19  f
+   *           / \
+   *          25  0
+   */
+  /*
+   * Sum the list of integers using recursion.
+   * You are not allowed to user mutable state (e.g. var), or loops of any kind (e.g. while, for).
+   */
+  def recursiveSum(l: List[Int]): Int = {
+    l match {
+      case head :: tail => head + recursiveSum(tail)
+      case Nil => 0
+    }
+  }
 
-  // Fold right
-  val recursiveResult = {
-    def sum(l: List[Int]): Int = {
+  /*
+   * TODO: Comment for solution branch only
+   * Same as foldLeft
+   * List(2,4,7,19,25).foldRight(0)(_+_)
+   *
+   *             f
+   *            / \
+   *           f  25
+   *          / \
+   *         f  19
+   *        / \
+   *       f   7
+   *      / \
+   *     f   4
+   *    / \
+   *   0   2
+   */
+  /*
+   * Sum the list of integers using tail call optimized recursion.
+   * You are not allowed to user mutable state (e.g. var), or loops of any kind (e.g. while, for).
+   */
+  def tailRecursiveSum(l: List[Int]): Int = {
+    @tailrec
+    def innerSum(l: List[Int], accumulator: Int): Int = {
       l match {
-        case head :: tail => head + sum(tail)
-        case Nil => 0
+        case head :: tail => innerSum(tail, accumulator + head)
+        case Nil => accumulator
       }
     }
-    sum(numbers)
-  }
-
-  println(recursiveResult)
-
-  // Fold left
-  val tailRecRecursiveResult = {
-    def sum(l: List[Int]): Int = {
-      @tailrec
-      def innerSum(l: List[Int], accumulator: Int): Int = {
-        l match {
-          case head :: tail => innerSum(tail, accumulator + head)
-          case Nil => accumulator
-        }
-      }
-      innerSum(l, 0)
-    }
-    sum(numbers)
+    innerSum(l, 0)
   }
 
 
-  val foldResult = numbers.foldLeft(0)(_ + _)
-  val reduceResult = numbers.reduceLeft(_ + _)
+  /*
+   * Sum the list of integers using fold
+   */
+  def foldSum(l: List[Int]): Int = l.foldLeft(0)(_ + _)
 
-
-  println(foldResult)
-  println(reduceResult)
+  /*
+   * Sum the list of integers using reduce
+   */
+  def reduceSum(l: List[Int]): Int = l.reduceLeft(_ + _)
 
 }

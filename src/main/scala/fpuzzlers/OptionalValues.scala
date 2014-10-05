@@ -1,6 +1,11 @@
 package fpuzzlers
 
-object OptionalValuesAndLoops {
+/*
+ * In this exercise you will refactor a lot of nested if-statements to a more functional approach.
+ * You are not allowed to change the messy data structure that can and will contain null values.
+ * Avoid NullPointerExceptions without the use of explicit null checks.
+ */
+object OptionalValues {
 
   case class Person(name: String)
   case class Account(balance: Long, owner: Person)
@@ -37,7 +42,8 @@ object OptionalValuesAndLoops {
 
   /*
    * Refactor getNameOfWealthiestPersonImperative in a functional manner.
-   * You are not allowed to use mutable data structures as val, or use any kind of loops like while or for.
+   * You are not allowed to user mutable state (e.g. var), or loops of any kind (e.g. while, for).
+   * Try to avoid the use of if-statements.
    * (Hint: For-Comprehension is not a loop, and Option is your friend)
    */
   def getNameOfWealthiestPersonFunctional(bank: Bank): String = {
