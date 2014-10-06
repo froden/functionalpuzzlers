@@ -37,3 +37,32 @@ slides:
   * dep som parametre (partial application) samme som i oo
   * dep som implicit parametre
 
+
+(Prelude: Handle om funksjonell programmering.
+Vi rakk dessverre ikke å lage en stor funksjonell kodebase som vi kunne bruke som eksempel, som Christian ønsket seg.
+Men vi skal snakke litt om grunnleggende prinsipper (for det er faktisk nødvendig å terpe på disse for å kunne
+mestre funksjonell programmering) og gjøre noen oppgaver der vi i hovedsak skal prøve å skrive om imperativ kode til
+funksjonell kode.)
+
+1: Hva er funksjonell programmering?
+
+* Programmering med funksjoner
+* Unngå state og mutable data
+* Ingen statements, bare expressions
+
+2: Pure functions
+
+* Samme input = samme output
+* Ingen observerbare side-effects
+* Referential transparent
+
+//Hvorfor er det bra?
+//enkelt å teste, gjenbruke og enklere å paralellisere og optimalisere
+
+3: Bare pure functions?
+
+* I Haskell ja, i Scala tja
+* Funksjonell kjerne
+* Kode med IO flyttes til de ytterste lagene
+
+//All kode kan skrives om til å bestå av en pure del og en io-avhengig del.
