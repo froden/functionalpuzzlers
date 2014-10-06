@@ -42,7 +42,7 @@ object OptionalValues {
 
   /*
    * Refactor getNameOfWealthiestPersonImperative in a functional manner.
-   * You are not allowed to user mutable state (e.g. var), or loops of any kind (e.g. while, for).
+   * You are not allowed to use mutable state (e.g. var), or loops of any kind (e.g. while, for).
    * Try to avoid the use of if-statements.
    * (Hint: For-Comprehension and Option is your friend)
    */
