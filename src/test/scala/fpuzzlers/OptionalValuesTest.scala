@@ -95,16 +95,6 @@ class OptionalValuesTest extends FunSuite with MustMatchers {
     name must be("")
   }
 
-  test("imperative get must return name of wealthiest person even if account list includes null accounts") {
-    val name = getNameOfWealthiestPersonImperative(bankWithNullAccounts)
-    name must be("Richie")
-  }
-
-  test("functional get must return name of wealthiest person even if account list includes null accounts") {
-    val name = getNameOfWealthiestPersonFunctional(bankWithNullAccounts)
-    name must be("Richie")
-  }
-
   test("imperative get must return '' if riches person is null") {
     val name = getNameOfWealthiestPersonImperative(bankWithNullWealthiestPerson)
     name must be("")
