@@ -6,102 +6,154 @@ import org.scalatest.{MustMatchers, FunSuite}
 
 class OptionalValuesTest extends FunSuite with MustMatchers {
 
-  val bankWithNormalData =
-    Bank(List(
-      Account(5000L, Person("Lars")),
-      Account(200L, Person("Jack")),
-      Account(1000000L, Person("Richie")),
-      Account(150000L, Person("Alisha")),
-      Account(20000L, Person("Nina")))
+  val bankWithNormalDataLegacy =
+    BankLegacy(List(
+      AccountLegacy(5000L, PersonLegacy("Lars")),
+      AccountLegacy(200L, PersonLegacy("Jack")),
+      AccountLegacy(1000000L, PersonLegacy("Richie")),
+      AccountLegacy(150000L, PersonLegacy("Alisha")),
+      AccountLegacy(20000L, PersonLegacy("Nina")))
     )
 
-  val bankWithoutNameOfWealthiestPerson =
-    Bank(List(
-      Account(5000L, Person("Lars")),
-      Account(200L, Person("Jack")),
-      Account(1000000L, Person(null)),
-      Account(150000L, Person("Alisha")),
-      Account(20000L, Person("Nina")))
+  val bankWithoutNameOfWealthiestPersonLegacy =
+    BankLegacy(List(
+      AccountLegacy(5000L, PersonLegacy("Lars")),
+      AccountLegacy(200L, PersonLegacy("Jack")),
+      AccountLegacy(1000000L, PersonLegacy(null)),
+      AccountLegacy(150000L, PersonLegacy("Alisha")),
+      AccountLegacy(20000L, PersonLegacy("Nina")))
     )
 
-  val bankWithoutNullAccountList = Bank(null)
+  val bankWithoutNullAccountListLegacy = BankLegacy(null)
 
-  val bankWithoutEmptyAccountList = Bank(List())
+  val bankWithoutEmptyAccountListLegacy = BankLegacy(List())
 
-  val bankWithNullAccounts =
-    Bank(List(
-      null,
-      Account(200L, Person("Jack")),
-      Account(1000000L, Person("Richie")),
-      null,
-      Account(20000L, Person("Nina")))
-    )
-
-  val bankWithNullWealthiestPerson = Bank(List(
-    Account(5000L, Person("Lars")),
-    Account(200L, Person("Jack")),
-    Account(1000000L, null),
-    Account(150000L, Person("Alisha")),
-    Account(20000L, Person("Nina")))
+  val bankWithNullWealthiestPersonLegacy = BankLegacy(List(
+    AccountLegacy(5000L, PersonLegacy("Lars")),
+    AccountLegacy(200L, PersonLegacy("Jack")),
+    AccountLegacy(1000000L, null),
+    AccountLegacy(150000L, PersonLegacy("Alisha")),
+    AccountLegacy(20000L, PersonLegacy("Nina")))
   )
 
-  test("imperative get must return '' when bank is null") {
+  test("getNameOfWealthiestPersonImperative must return '' when bank is null") {
     val name = getNameOfWealthiestPersonImperative(null)
     name must be("")
   }
 
-  test("functional get must return '' when bank is null") {
-    val name = getNameOfWealthiestPersonFunctional(null)
-    name must be("")
-  }
-
-  test("imperative get must return name of wealthiest person") {
-    val name = getNameOfWealthiestPersonImperative(bankWithNormalData)
+  test("getNameOfWealthiestPersonImperative must return name of wealthiest person") {
+    val name = getNameOfWealthiestPersonImperative(bankWithNormalDataLegacy)
     name must be("Richie")
   }
 
-  test("functional get must return name of wealthiest person") {
-    val name = getNameOfWealthiestPersonFunctional(bankWithNormalData)
+  test("getNameOfWealthiestPersonImperative must return 'No name' if riches person has no name") {
+    val name = getNameOfWealthiestPersonImperative(bankWithoutNameOfWealthiestPersonLegacy)
+    name must be("No name")
+  }
+
+  test("getNameOfWealthiestPersonImperative must return '' if accounts is null") {
+    val name = getNameOfWealthiestPersonImperative(bankWithoutNullAccountListLegacy)
+    name must be("")
+  }
+
+  test("getNameOfWealthiestPersonImperative must return '' if account list is empty") {
+    val name = getNameOfWealthiestPersonImperative(bankWithoutEmptyAccountListLegacy)
+    name must be("")
+  }
+  
+  test("getNameOfWealthiestPersonImperative must return '' if riches person is null") {
+    val name = getNameOfWealthiestPersonImperative(bankWithNullWealthiestPersonLegacy)
+    name must be("")
+  }
+
+  test("getNameOfWealthiestPersonFunctionalLegacy must return '' when bank is null") {
+    val name = getNameOfWealthiestPersonFunctionalLegacy(null)
+    name must be("")
+  }
+
+  test("getNameOfWealthiestPersonFunctionalLegacy must return name of wealthiest person") {
+    val name = getNameOfWealthiestPersonFunctionalLegacy(bankWithNormalDataLegacy)
     name must be("Richie")
   }
 
-  test("imperative get must return 'No name' if riches person has no name") {
-    val name = getNameOfWealthiestPersonImperative(bankWithoutNameOfWealthiestPerson)
+  test("getNameOfWealthiestPersonFunctionalLegacy must return 'No name' if riches person has no name") {
+    val name = getNameOfWealthiestPersonFunctionalLegacy(bankWithoutNameOfWealthiestPersonLegacy)
     name must be("No name")
   }
 
-  test("functional get must return 'No name' if riches person has no name") {
-    val name = getNameOfWealthiestPersonFunctional(bankWithoutNameOfWealthiestPerson)
+  test("getNameOfWealthiestPersonFunctionalLegacy must return '' if accounts is null") {
+    val name = getNameOfWealthiestPersonFunctionalLegacy(bankWithoutNullAccountListLegacy)
+    name must be("")
+  }
+
+  test("getNameOfWealthiestPersonFunctionalLegacy must return '' if account list is empty") {
+    val name = getNameOfWealthiestPersonFunctionalLegacy(bankWithoutEmptyAccountListLegacy)
+    name must be("")
+  }
+
+  test("getNameOfWealthiestPersonFunctionalLegacy must return '' if riches person is null") {
+    val name = getNameOfWealthiestPersonFunctionalLegacy(bankWithNullWealthiestPersonLegacy)
+    name must be("")
+  }
+
+  val bankWithNormalData =
+    Bank(Some(List(
+      Account(5000L, Some(Person(Some("Lars")))),
+      Account(200L, Some(Person(Some("Jack")))),
+      Account(1000000L, Some(Person(Some("Richie")))),
+      Account(150000L, Some(Person(Some("Alisha")))),
+      Account(20000L, Some(Person(Some("Nina"))))
+    )))
+
+  val bankWithoutNameOfWealthiestPerson =
+    Bank(Some(List(
+      Account(5000L, Some(Person(Some("Lars")))),
+      Account(200L, Some(Person(Some("Jack")))),
+      Account(1000000L, Some(Person(None))),
+      Account(150000L, Some(Person(Some("Alisha")))),
+      Account(20000L, Some(Person(Some("Nina"))))
+    )))
+
+  val bankWithoutNullAccountList = Bank(None)
+
+  val bankWithoutEmptyAccountList = Bank(Some(List()))
+
+  val bankWithNullWealthiestPerson =
+    Bank(Some(List(
+      Account(5000L, Some(Person(Some("Lars")))),
+      Account(200L, Some(Person(Some("Jack")))),
+      Account(1000000L, None),
+      Account(150000L, Some(Person(Some("Alisha")))),
+      Account(20000L, Some(Person(Some("Nina"))))
+    )))
+
+  test("getNameOfWealthiestPersonFunctional must return '' when bank is null") {
+    val name = getNameOfWealthiestPersonFunctional(None)
+    name must be("")
+  }
+
+  test("getNameOfWealthiestPersonFunctional must return name of wealthiest person") {
+    val name = getNameOfWealthiestPersonFunctional(Some(bankWithNormalData))
+    name must be("Richie")
+  }
+
+  test("getNameOfWealthiestPersonFunctional must return 'No name' if riches person has no name") {
+    val name = getNameOfWealthiestPersonFunctional(Some(bankWithoutNameOfWealthiestPerson))
     name must be("No name")
   }
 
-  test("imperative get must return '' if accounts is null") {
-    val name = getNameOfWealthiestPersonImperative(bankWithoutNullAccountList)
+  test("getNameOfWealthiestPersonFunctional must return '' if accounts is null") {
+    val name = getNameOfWealthiestPersonFunctional(Some(bankWithoutNullAccountList))
     name must be("")
   }
 
-  test("functional get must return '' if accounts is null") {
-    val name = getNameOfWealthiestPersonFunctional(bankWithoutNullAccountList)
+  test("getNameOfWealthiestPersonFunctional must return '' if account list is empty") {
+    val name = getNameOfWealthiestPersonFunctional(Some(bankWithoutEmptyAccountList))
     name must be("")
   }
 
-  test("imperative get must return '' if account list is empty") {
-    val name = getNameOfWealthiestPersonImperative(bankWithoutEmptyAccountList)
-    name must be("")
-  }
-
-  test("functional get must return '' if account list is empty") {
-    val name = getNameOfWealthiestPersonFunctional(bankWithoutEmptyAccountList)
-    name must be("")
-  }
-
-  test("imperative get must return '' if riches person is null") {
-    val name = getNameOfWealthiestPersonImperative(bankWithNullWealthiestPerson)
-    name must be("")
-  }
-
-  test("functional get must return '' if riches person is null") {
-    val name = getNameOfWealthiestPersonFunctional(bankWithNullWealthiestPerson)
+  test("getNameOfWealthiestPersonFunctional must return '' if riches person is null") {
+    val name = getNameOfWealthiestPersonFunctional(Some(bankWithNullWealthiestPerson))
     name must be("")
   }
 

@@ -5,15 +5,15 @@ package fpuzzlers
  */
 object OptionalValues {
 
-  case class Person(name: String)
-  case class Account(balance: Long, owner: Person)
-  case class Bank(accounts: List[Account])
+  case class PersonLegacy(name: String)
+  case class AccountLegacy(balance: Long, owner: PersonLegacy)
+  case class BankLegacy(accounts: List[AccountLegacy])
 
 
-  def getNameOfWealthiestPersonImperative(bank: Bank): String = {
+  def getNameOfWealthiestPersonImperative(bank: BankLegacy): String = {
     if(bank != null) {
       if (bank.accounts != null) {
-        var accountWithGreatestBalance: Account = null
+        var accountWithGreatestBalance: AccountLegacy = null
         for (account <- bank.accounts) {
           if (accountWithGreatestBalance == null || accountWithGreatestBalance.balance < account.balance) {
             accountWithGreatestBalance = account
@@ -43,14 +43,35 @@ object OptionalValues {
    * Try to avoid the use of if-statements and explicit null checks
    * (Hint: For-Comprehension and Option is your friend)
    */
-  def getNameOfWealthiestPersonFunctional(bank: Bank): String = {
+  def getNameOfWealthiestPersonFunctionalLegacy(bank: BankLegacy): String = {
     val name = for {
       bank <- Option(bank)
       accounts <- Option(bank.accounts)
       account <- accounts.sortBy(- _.balance).headOption
       owner <- Option(account.owner)
-      name <- Option(owner.name).orElse(Some("No name"))
-    } yield name
+    } yield Option(owner.name).getOrElse("No name")
+
+    name.getOrElse("")
+  }
+
+
+  case class Person(name: Option[String])
+  case class Account(balance: Long, owner: Option[Person])
+  case class Bank(accounts: Option[List[Account]])
+
+  /*
+   * Refactor getNameOfWealthiestPersonFunctionalLegacy with a more functional data structure.
+   * You are not allowed to use mutable state (e.g. var), or loops of any kind (e.g. while, for).
+   * Try to avoid the use of if-statements and explicit null checks
+   * (Hint: For-Comprehension and Option is your friend)
+   */
+  def getNameOfWealthiestPersonFunctional(bank: Option[Bank]): String = {
+    val name = for {
+      bank <- bank
+      accounts <- bank.accounts
+      account <- accounts.sortBy(- _.balance).headOption
+      owner <- account.owner
+    } yield owner.name.getOrElse("No name")
 
     name.getOrElse("")
   }
