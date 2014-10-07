@@ -13,9 +13,9 @@ object DependencyInjection {
   }
 
   /**
-   * Klassis OO dependecy injection der vi gjennom konstruktøren
+   * Klassisk OO dependency injection der vi gjennom konstruktøren
    * sender med alle avhengigheter og grupperer funksjoner som trenger
-   * disse avhengighetene i Service-klaser
+   * disse avhengighetene i Service-klasser
    */
   class InnboksService(kontoDao: KontoDao, brevDao: BrevDao) {
 
@@ -33,7 +33,7 @@ object DependencyInjection {
    * I en funksjonell variant av meldingstjenesten er vi ikke avhengig av å gruppere
    * funksjoner i servicer bare fordi de har omtrent de samme avhengighetene.
    * Det holder å ha en samling funksjoner i et objekt (scala) eller samling statiske
-   * metoder (java). Dette gjør det enklere å refactore og man unngår Service-klasser
+   * metoder (java). Dette gjør det enklere å refaktorere og man unngår service-klasser
    * som inneholder metoder som kun bruker et subset av avhengighetene.
    */
   object Innboks {
