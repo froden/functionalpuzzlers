@@ -39,7 +39,7 @@ object Recursion extends App {
   /*
    * TODO: Comment for solution branch only
    * Same as foldLeft
-   * List(2,4,7,19,25).foldRight(0)(_+_)
+   * List(2,4,7,19,25).foldLeft(0)(_+_)
    *
    *             f
    *            / \
