@@ -45,22 +45,12 @@ object Polling {
     /**
      * Denne hjelpefunksjonen returner en uendelig strøm av cpu-resultateter fra en ekstern JVM
      */
-    private def pollJmxCpu(jmxService: JmxService): Stream[Long] =
-      Try(jmxService.pollCpu()) match {
-        case Success(l) => l #:: pollJmxCpu(jmxService)
-        case Failure(e) => pollJmxCpu(jmxService)
-      }
+    private def pollJmxCpu(jmxService: JmxService): Stream[Long] = ??? //TODO: implementer denne
 
     /**
      * Denne funksjonen brukes til å polle en ekstern JVM for cpu-bruk med 500ms intervaller.
      * Resultatet er en liste som returneres asynkront via en future.
      */
-    def getJmxCpuStats(jmxService: JmxService, running: () => Boolean): Future[List[Long]] =
-      Future {
-        pollJmxCpu(jmxService)
-          .takeWhile(_ => running())
-          .map(l => {Thread.sleep(500); l})
-          .toList
-      }
+    def getJmxCpuStats(jmxService: JmxService, running: () => Boolean): Future[List[Long]] = ??? //TODO: implementer denne
   }
 }

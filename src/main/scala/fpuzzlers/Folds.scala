@@ -13,7 +13,7 @@ object Folds {
    * ved å lage et nytt dokument som inneholder alle sidene til de
    * opprinnelige dokumentene.
    */
-  def combineAllImperative(documents: List[Document]) = {
+  def combineAllImperative(documents: List[Document]): Document = {
     var resultDoc = new Document(Nil)
     for (doc <- documents) {
       resultDoc = resultDoc.merge(doc)
@@ -24,6 +24,5 @@ object Folds {
   /**
    * Slå sammen alle dokumentene i listen på en funksjonell måte.
    */
-  def combineAllFunctional(documents: List[Document]) =
-    documents.foldLeft(new Document(Nil))(_ merge _)
+  def combineAllFunctional(documents: List[Document]): Document = ??? //TODO: implementer denne
 }

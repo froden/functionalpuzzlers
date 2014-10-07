@@ -43,8 +43,5 @@ object Mapping {
    *  * Ingen while/for-each
    *  * Ingen side-effects/mutable state
    */
-  def functionalMapReceiptsToMessages(messages: List[Message], receipts: List[Receipt]): List[(Message, Option[Receipt])] = {
-    val mappedReceipts = receipts.map(r => (r.messageId, r)).toMap
-    messages.map(m => (m, mappedReceipts.get(m.id)))
-  }
+  def functionalMapReceiptsToMessages(messages: List[Message], receipts: List[Receipt]): List[(Message, Option[Receipt])] = ??? //TODO: implementer denne
 }

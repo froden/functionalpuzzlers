@@ -43,16 +43,7 @@ object OptionalValues {
    * Try to avoid the use of if-statements and explicit null checks
    * (Hint: For-Comprehension and Option is your friend)
    */
-  def getNameOfWealthiestPersonFunctionalLegacy(bank: BankLegacy): String = {
-    val name = for {
-      bank <- Option(bank)
-      accounts <- Option(bank.accounts)
-      account <- accounts.sortBy(- _.balance).headOption
-      owner <- Option(account.owner)
-    } yield Option(owner.name).getOrElse("No name")
-
-    name.getOrElse("")
-  }
+  def getNameOfWealthiestPersonFunctionalLegacy(bank: BankLegacy): String = ??? //TODO: implement this
 
 
   case class Person(name: Option[String])
@@ -65,16 +56,7 @@ object OptionalValues {
    * Try to avoid the use of if-statements and explicit null checks
    * (Hint: For-Comprehension and Option is your friend)
    */
-  def getNameOfWealthiestPersonFunctional(bank: Option[Bank]): String = {
-    val name = for {
-      bank <- bank
-      accounts <- bank.accounts
-      account <- accounts.sortBy(- _.balance).headOption
-      owner <- account.owner
-    } yield owner.name.getOrElse("No name")
-
-    name.getOrElse("")
-  }
+  def getNameOfWealthiestPersonFunctional(bank: Option[Bank]): String = ??? //TODO: implement this
 
 
 }

@@ -45,11 +45,7 @@ object SideEffects {
        * Slår samme to Charges til en slik at et kredittkort kun belastes 1 gang.
        * Dette er kun mulig hvis begge chargene er for samme kort.
        */
-      def combine(other: Charge): Charge =
-        if (cc == other.cc)
-          Charge(cc, amount + other.amount)
-        else
-          throw new Exception("Can't combine charges to different cards")
+      def combine(other: Charge): Charge = ??? //TODO: implementer denne
     }
 
     class Cafe {
@@ -58,20 +54,13 @@ object SideEffects {
        * opprette en kaffe og returnere disse som et tuple.
        * Denne varianten er referential transparent og er enkel å gjenbruke.
        */
-      def buyCoffee(cc: CreditCard): (Coffee, Charge) = {
-        val cup = new Coffee()
-        (cup, Charge(cc, cup.price))
-      }
+      def buyCoffee(cc: CreditCard): (Coffee, Charge) = ??? //TODO: implementer denne
 
       /**
        * Hvis kunden kjøper mer enn 1 kaffe skal hun få en liste med kaffe,
        * men skal kun belastes 1 gang. Derfor 1 charge med totalbeløpet.
        */
-      def buyCoffees(cc: CreditCard, n: Int): (List[Coffee], Charge) = {
-        val purchases: List[(Coffee, Charge)] = List.fill(n)(buyCoffee(cc))
-        val (coffees, charges) = purchases.unzip
-        (coffees, charges.reduce((c1,c2) => c1.combine(c2)))
-      }
+      def buyCoffees(cc: CreditCard, n: Int): (List[Coffee], Charge) = ??? //TODO: implementer denne
     }
 
     class Payments {
@@ -84,16 +73,14 @@ object SideEffects {
       /**
        * Kassaoppgjør: Belaster en liste med charger tilhørende ulike kunder
        */
-      def charge(charges: List[Charge]): Unit =
-        groupByCC(charges).foreach(c => charge(c.cc, c.amount))
+      def charge(charges: List[Charge]): Unit = ??? //TODO: implementer denne
 
       /**
        * Hvis en kunde har sittet i kafeen en stund og gjort forskjellig kjøp
        * hadde det vært fint å kunne belaste kunden kun 1 gang for alle kjøpene.
        * Denne funksjonen kombinerer Charge objekter med samme kredittkort.
        */
-      def groupByCC(charges: List[Charge]) =
-        charges.groupBy(_.cc).values.map(_.reduce(_ combine _)).toList
+      def groupByCC(charges: List[Charge]): List[Charge] = ??? //TODO: implementer denne
     }
   }
 
