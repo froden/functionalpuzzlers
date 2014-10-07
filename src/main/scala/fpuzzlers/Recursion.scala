@@ -9,7 +9,9 @@ import scala.annotation.tailrec
 object Recursion extends App {
 
   /*
-   * TODO: Comment for solution branch only
+   * Sum the list of integers using recursion.
+   * You are not allowed to use mutable state (e.g. var), or loops of any kind (e.g. while, for).
+   *
    * Same as foldRight
    * List(2,4,7,19,25).foldRight(0)(_+_)
    *
@@ -25,10 +27,6 @@ object Recursion extends App {
    *           / \
    *          25  0
    */
-  /*
-   * Sum the list of integers using recursion.
-   * You are not allowed to use mutable state (e.g. var), or loops of any kind (e.g. while, for).
-   */
   def recursiveSum(l: List[Int]): Int = {
     l match {
       case head :: tail => head + recursiveSum(tail)
@@ -37,7 +35,9 @@ object Recursion extends App {
   }
 
   /*
-   * TODO: Comment for solution branch only
+   * Sum the list of integers using tail call optimized recursion.
+   * You are not allowed to use mutable state (e.g. var), or loops of any kind (e.g. while, for).
+   *
    * Same as foldLeft
    * List(2,4,7,19,25).foldLeft(0)(_+_)
    *
@@ -53,10 +53,6 @@ object Recursion extends App {
    *    / \
    *   0   2
    */
-  /*
-   * Sum the list of integers using tail call optimized recursion.
-   * You are not allowed to use mutable state (e.g. var), or loops of any kind (e.g. while, for).
-   */
   def tailRecursiveSum(l: List[Int]): Int = {
     @tailrec
     def innerSum(l: List[Int], accumulator: Int): Int = {
@@ -67,7 +63,6 @@ object Recursion extends App {
     }
     innerSum(l, 0)
   }
-
 
   /*
    * Sum the list of integers using fold
