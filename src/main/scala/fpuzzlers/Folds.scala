@@ -8,6 +8,11 @@ object Folds {
     def merge(doc: Document) = new Document(pages ::: doc.pages)
   }
 
+  /**
+   * Funksjonene kombinerer en liste med dokumenter til ett dokument
+   * ved å lage et nytt dokument som inneholder alle sidene til de
+   * opprinnelige dokumentene.
+   */
   def combineAllImperative(documents: List[Document]) = {
     var resultDoc = new Document(Nil)
     for (doc <- documents) {
@@ -16,6 +21,9 @@ object Folds {
     resultDoc
   }
 
+  /**
+   * Slå sammen alle dokumentene i listen på en funksjonell måte.
+   */
   def combineAllFunctional(documents: List[Document]) =
     documents.foldLeft(new Document(Nil))(_ merge _)
 }

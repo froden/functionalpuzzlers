@@ -9,6 +9,14 @@ object Mapping {
   case class Receipt(messageId: String)
 
 
+  /**
+   *  Et system sender meldinger og får deretter asynkrone kvitteringer på at meldingene er levert.
+   *  Etter en batch-utsending sitter man med en liste av sendte meldinger og kvitteringer.
+   *  Oppgaven går ut på å matche sendte meldinger med tilhørende kvittering.
+   *  Det er snakke om ganske mange meldinger og kvitteringer.
+   *
+   *  Dette eksemplet viser en typisk imperativ løsning på problemet.
+   */
   def imperativeMapReceiptsToMessages(messages: List[Message], receipts: List[Receipt]): List[(Message, Option[Receipt])] = {
 
     val mappedReceipts = new mutable.HashMap[String, Receipt]()
@@ -19,16 +27,24 @@ object Mapping {
     val result = new mutable.ListBuffer[(Message, Option[Receipt])]
     for (message <- messages) {
       result += ((message, mappedReceipts.get(message.id)))
-      //      result += ((message, receipts.find(r => r.messageId == message.id)))
     }
 
     result.toList
   }
 
-
+  /**
+   *  Et system sender meldinger og får deretter asynkrone kvitteringer på at meldingene er levert.
+   *  Etter en batch-utsending sitter man med en liste av sendte meldinger og kvitteringer.
+   *  Oppgaven går ut på å matche sendte meldinger med tilhørende kvittering.
+   *  Det er snakke om ganske mange meldinger og kvitteringer.
+   *
+   *  Løs oppgaven på en funksjonell måte. Dvs:
+   *  * Ingen var
+   *  * Ingen while/for-each
+   *  * Ingen side-effects/mutable state
+   */
   def functionalMapReceiptsToMessages(messages: List[Message], receipts: List[Receipt]): List[(Message, Option[Receipt])] = {
     val mappedReceipts = receipts.map(r => (r.messageId, r)).toMap
     messages.map(m => (m, mappedReceipts.get(m.id)))
-//    messages.map(m => (m, receipts.find(r => r.messageId == m.id)))
   }
 }

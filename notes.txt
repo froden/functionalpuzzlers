@@ -66,3 +66,15 @@ funksjonell kode.)
 * Kode med IO flyttes til de ytterste lagene
 
 //All kode kan skrives om til å bestå av en pure del og en io-avhengig del.
+
+4: Higher order functions
+
+* Funksjoner som tar inn og/eller returnerer funksjoner
+* Essensiell del av FP
+* Eksempler: map, filter, flatmap, find etc.
+
+//OPPGAVE
+
+5: Eksplisitt rekursjon
+
+6: Fold
